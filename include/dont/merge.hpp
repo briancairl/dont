@@ -1,3 +1,5 @@
+#pragma once
+
 #include "dont/append.hpp"
 #include "dont/common.hpp"
 #include "dont/conditions.hpp"

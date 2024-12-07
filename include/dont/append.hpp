@@ -1,3 +1,5 @@
+#pragma once
+
 #include "dont/common.hpp"
 #include "dont/conditions.hpp"
 
@@ -23,9 +25,9 @@ struct AppendIf<Condition, PackLike<Ts...>, AppendT>
 };
 
 template<typename PackLikeT, typename AppendT>
-using append_unique_t = typename AppendIf<Invert<IsMember>::eval, PackLikeT, AppendT>::type;
+using append_t = typename AppendIf<Identity, PackLikeT, AppendT>::type;
 
 template<typename PackLikeT, typename AppendT>
-using append_t = typename AppendIf<Identity, PackLikeT, AppendT>::type;
+using set_add_t = typename AppendIf<Invert<IsMember>::eval, PackLikeT, AppendT>::type;
 
 } // namespace dont
