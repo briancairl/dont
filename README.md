@@ -5,7 +5,7 @@ A collection of C++ template (metaprogramming) utilities that I often need, but 
 ## requirements
 
 - A C++ compiler that supports:
-    + C++14 or greater
+    + C++17 or greater
     + `#pragma once` because I refuse to accept that it's not standard
 - [optional] CMake
 - [optional] [GTest](https://github.com/google/googletest) (for unit tests)
