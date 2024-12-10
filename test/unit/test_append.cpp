@@ -14,7 +14,8 @@
 
 using namespace dont;
 
-TEST(AppendIf, AddToEmptyPack) {
+TEST(AppendIf, AddToEmptyPack)
+{
   using Input = Pack<>;
   EXPECT_EQ(Input::size(), 0UL);
 
@@ -25,7 +26,8 @@ TEST(AppendIf, AddToEmptyPack) {
   EXPECT_EQ(Result2::size(), 2UL);
 }
 
-TEST(AppendIf, AddToEmptyPackAccepted) {
+TEST(AppendIf, AddToEmptyPackAccepted)
+{
   using Input = Pack<>;
   EXPECT_EQ(Input::size(), 0UL);
 
@@ -33,7 +35,8 @@ TEST(AppendIf, AddToEmptyPackAccepted) {
   EXPECT_EQ(Result::size(), 1UL);
 }
 
-TEST(AppendIf, AddToEmptyPackRejected) {
+TEST(AppendIf, AddToEmptyPackRejected)
+{
   using Input = Pack<>;
   EXPECT_EQ(Input::size(), 0UL);
 
@@ -41,7 +44,8 @@ TEST(AppendIf, AddToEmptyPackRejected) {
   EXPECT_EQ(Result::size(), 0UL);
 }
 
-TEST(AppendIf, SetAdd) {
+TEST(AppendIf, SetAdd)
+{
   using Input = Pack<>;
   EXPECT_EQ(Input::size(), 0UL);
 

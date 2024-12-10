@@ -14,7 +14,8 @@
 
 using namespace dont;
 
-TEST(MergeIf, EmptyPacks) {
+TEST(MergeIf, EmptyPacks)
+{
   using Input = Pack<>;
   EXPECT_EQ(Input::size(), 0UL);
 
@@ -22,7 +23,8 @@ TEST(MergeIf, EmptyPacks) {
   EXPECT_EQ(Result::size(), 0UL);
 }
 
-TEST(MergeIf, AddToEmptyPackAccepted) {
+TEST(MergeIf, AddToEmptyPackAccepted)
+{
   using InputLHS = Pack<>;
   EXPECT_EQ(InputLHS::size(), 0UL);
 
@@ -33,7 +35,8 @@ TEST(MergeIf, AddToEmptyPackAccepted) {
   EXPECT_EQ(Result::size(), 1UL);
 }
 
-TEST(MergeIf, SetUnionOthogonal) {
+TEST(MergeIf, SetUnionOthogonal)
+{
   using InputLHS = Pack<int>;
   EXPECT_EQ(InputLHS::size(), 1UL);
 
@@ -44,7 +47,8 @@ TEST(MergeIf, SetUnionOthogonal) {
   EXPECT_EQ(Result::size(), 2UL);
 }
 
-TEST(MergeIf, SetUnionNonOthogonal) {
+TEST(MergeIf, SetUnionNonOthogonal)
+{
   using InputLHS = Pack<int>;
   EXPECT_EQ(InputLHS::size(), 1UL);
 

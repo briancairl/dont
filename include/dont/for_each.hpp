@@ -3,38 +3,40 @@
 #include "dont/common.hpp"
 #include "dont/counting.hpp"
 
-namespace dont {
+namespace dont
+{
 
-namespace detail {
+namespace detail
+{
 
-template <typename SliceElementAccess> struct SliceAdapter {
+template <typename SliceElementAccess> struct SliceAdapter
+{
   template <typename UnaryCallableT, typename... PackLikeTs>
-  static auto slice(UnaryCallableT callable, PackLikeTs &&...packs) {
+  static auto slice(UnaryCallableT callable, PackLikeTs&&... packs)
+  {
     callable(SliceElementAccess{}(forward<PackLikeTs>(packs))...);
     return 1;
   }
 };
 
-template <template <size_t> class RuntimeAccessByIndex, typename UnaryCallableT,
-          size_t... Is, typename... PackLikeTs>
-auto for_each(UnaryCallableT &&callable,
-              [[maybe_unused]] index_sequence_t<Is...> _,
-              PackLikeTs &&...packs) {
+template <template <size_t> class RuntimeAccessByIndex, typename UnaryCallableT, size_t... Is, typename... PackLikeTs>
+auto for_each(UnaryCallableT&& callable, [[maybe_unused]] index_sequence_t<Is...> _, PackLikeTs&&... packs)
+{
   return (
-      SliceAdapter<RuntimeAccessByIndex<Is>>::template slice(
-          forward<UnaryCallableT>(callable), forward<PackLikeTs>(packs)...) +
-      ...);
+    SliceAdapter<RuntimeAccessByIndex<Is>>::template slice(
+      forward<UnaryCallableT>(callable), forward<PackLikeTs>(packs)...) +
+    ...);
 }
 
-} // namespace detail
+}  // namespace detail
 
-template <template <size_t> class RuntimeAccessByIndex, typename UnaryCallableT,
-          typename... PackLikeTs>
-auto for_each(UnaryCallableT &&callable, PackLikeTs &&...packs) {
+template <template <size_t> class RuntimeAccessByIndex, typename UnaryCallableT, typename... PackLikeTs>
+auto for_each(UnaryCallableT&& callable, PackLikeTs&&... packs)
+{
   return detail::for_each<RuntimeAccessByIndex>(
-      forward<UnaryCallableT>(callable),
-      make_index_sequence_t<pack_size_v<PackLikeTs...>>{},
-      forward<PackLikeTs>(packs)...);
+    forward<UnaryCallableT>(callable),
+    make_index_sequence_t<pack_size_v<PackLikeTs...>>{},
+    forward<PackLikeTs>(packs)...);
 }
 
-} // namespace dont
+}  // namespace dont
