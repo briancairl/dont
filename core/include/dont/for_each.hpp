@@ -14,7 +14,7 @@ template <typename SliceElementAccess> struct SliceAdapter
   template <typename UnaryCallableT, typename... PackLikeTs>
   static auto slice(UnaryCallableT callable, PackLikeTs&&... packs)
   {
-    callable(SliceElementAccess{}(forward<PackLikeTs>(packs))...);
+    callable(SliceElementAccess{}(_forward<PackLikeTs>(packs))...);
     return 1;
   }
 };
@@ -24,7 +24,7 @@ auto for_each(UnaryCallableT&& callable, [[maybe_unused]] index_sequence_t<Is...
 {
   return (
     SliceAdapter<RuntimeAccessByIndex<Is>>::template slice(
-      forward<UnaryCallableT>(callable), forward<PackLikeTs>(packs)...) +
+      _forward<UnaryCallableT>(callable), _forward<PackLikeTs>(packs)...) +
     ...);
 }
 
@@ -34,9 +34,9 @@ template <template <size_t> class RuntimeAccessByIndex, typename UnaryCallableT,
 auto for_each(UnaryCallableT&& callable, PackLikeTs&&... packs)
 {
   return detail::for_each<RuntimeAccessByIndex>(
-    forward<UnaryCallableT>(callable),
+    _forward<UnaryCallableT>(callable),
     make_index_sequence_t<pack_size_v<PackLikeTs...>>{},
-    forward<PackLikeTs>(packs)...);
+    _forward<PackLikeTs>(packs)...);
 }
 
 }  // namespace dont

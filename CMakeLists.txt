@@ -14,17 +14,33 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_INSTALL_PREFIX ${PROJECT_SOURCE_DIR})
 set(CMAKE_CXX_FLAGS "-std=c++17 -O3")
 
-add_library(${PROJECT_NAME}_header_only INTERFACE)
-target_compile_features(${PROJECT_NAME}_header_only INTERFACE cxx_std_17)
+add_library(${PROJECT_NAME}_core INTERFACE)
+target_compile_features(${PROJECT_NAME}_core INTERFACE cxx_std_17)
 target_include_directories(
-  ${PROJECT_NAME}_header_only
+  ${PROJECT_NAME}_core
   INTERFACE
-    $<BUILD_INTERFACE:${${PROJECT_NAME}_SOURCE_DIR}/include>
+    $<BUILD_INTERFACE:${${PROJECT_NAME}_SOURCE_DIR}/core/include>
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 
+add_library(${PROJECT_NAME}_stl INTERFACE)
+target_compile_features(${PROJECT_NAME}_stl INTERFACE cxx_std_17)
+target_include_directories(
+  ${PROJECT_NAME}_stl
+  INTERFACE
+    ${PROJECT_NAME}_core
+    $<BUILD_INTERFACE:${${PROJECT_NAME}_SOURCE_DIR}/stl/include>
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+)
+target_link_libraries(
+  ${PROJECT_NAME}_stl
+  INTERFACE
+    ${PROJECT_NAME}_core
+)
+
+
 include(GNUInstallDirs)
-install(TARGETS ${PROJECT_NAME}_header_only
+install(TARGETS ${PROJECT_NAME}_core
         EXPORT ${PROJECT_NAME}_Targets
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}

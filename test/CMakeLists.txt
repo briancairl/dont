@@ -23,13 +23,28 @@ add_subdirectory(${CMAKE_CURRENT_BINARY_DIR}/googletest-src
                  ${CMAKE_CURRENT_BINARY_DIR}/googletest-build
                  EXCLUDE_FROM_ALL)
 
-file(GLOB UNIT_TEST_FILES "unit/**.cpp")
 
-foreach(FILE ${UNIT_TEST_FILES})
+file(GLOB CORE_UNIT_TEST_FILES "core/**.cpp")
+foreach(FILE ${CORE_UNIT_TEST_FILES})
     get_filename_component(TEST_CASE ${FILE} NAME_WE)
 
     add_executable(${TEST_CASE} ${FILE})
-    target_link_libraries(${TEST_CASE} ${PROJECT_NAME}_header_only gtest_main)
+    target_link_libraries(${TEST_CASE} ${PROJECT_NAME}_core gtest_main)
+
+    add_test(
+        NAME "${TEST_CASE}"
+        COMMAND ${TEST_CASE} --no-skip
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+    )
+endforeach()
+
+
+file(GLOB STL_UNIT_TEST_FILES "stl/**.cpp")
+foreach(FILE ${STL_UNIT_TEST_FILES})
+    get_filename_component(TEST_CASE ${FILE} NAME_WE)
+
+    add_executable(${TEST_CASE} ${FILE})
+    target_link_libraries(${TEST_CASE} ${PROJECT_NAME}_stl gtest_main)
 
     add_test(
         NAME "${TEST_CASE}"

@@ -10,7 +10,7 @@ A collection of C++ template (metaprogramming) utilities that I often need, but 
 - [optional] CMake
 - [optional] [GTest](https://github.com/google/googletest) (for unit tests)
 
-Note that the implementations included here *do not depend on the STL*.
+Note that the `core` implementations included here *do not depend on the STL*.
 
 ## includes
 

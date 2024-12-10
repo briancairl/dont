@@ -61,9 +61,23 @@ template <typename T> struct RemoveReference<T&&>
 
 template <typename T> using remove_reference_t = typename RemoveReference<T>::type;
 
-template <typename T> constexpr T&& forward(remove_reference_t<T>& v) { return static_cast<T&&>(v); }
 
-template <typename T> constexpr T&& forward(remove_reference_t<T>&& v) { return static_cast<T&&>(v); }
+template <typename T> struct RemoveConst
+{
+  using type = T;
+};
+
+template <typename T> struct RemoveConst<const T>
+{
+  using type = T;
+};
+
+template <typename T> using remove_const_t = typename RemoveConst<T>::type;
+
+
+template <typename T> constexpr T&& _forward(remove_reference_t<T>& v) { return static_cast<T&&>(v); }
+
+template <typename T> constexpr T&& _forward(remove_reference_t<T>&& v) { return static_cast<T&&>(v); }
 
 /**
  * @brief Creates a type with an empty param pack
