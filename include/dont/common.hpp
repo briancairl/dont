@@ -66,9 +66,25 @@ template <typename T> constexpr T&& forward(remove_reference_t<T>& v) { return s
 template <typename T> constexpr T&& forward(remove_reference_t<T>&& v) { return static_cast<T&&>(v); }
 
 /**
+ * @brief Creates a type with an empty param pack
+ */
+template <typename PackLikeT> struct MakeEmpty;
+
+template <typename PackLikeT> using make_empty_t = typename MakeEmpty<PackLikeT>::type;
+
+/**
+ * @brief Creates a type with an empty param pack
+ */
+template <template <typename...> class PackLike, typename... Ts> struct MakeEmpty<PackLike<Ts...>>
+{
+  using type = PackLike<>;
+};
+
+
+/**
  * @brief Computes size of a pack
  */
-template <typename... PackLikeT> struct PackSize;
+template <typename... PackLikeTs> struct PackSize;
 
 /**
  * @copydoc PackSize

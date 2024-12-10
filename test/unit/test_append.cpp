@@ -31,7 +31,7 @@ TEST(AppendIf, AddToEmptyPackAccepted)
   using Input = Pack<>;
   EXPECT_EQ(Input::size(), 0UL);
 
-  using Result = append_if_t<Identity, Input, float>;
+  using Result = append_if_t<Is<float, int>::eval, Input, float>;
   EXPECT_EQ(Result::size(), 1UL);
 }
 

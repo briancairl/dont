@@ -21,4 +21,11 @@ template <template <typename, typename> class Condition> struct Invert
   {};
 };
 
+template <typename... TargetTs> struct Is
+{
+  static_assert(sizeof...(TargetTs) > 0, "'TargetTs' may not be empty");
+  template <typename QueryT, typename _> struct eval : Constant<bool, (is_same_v<TargetTs, QueryT> or ...)>
+  {};
+};
+
 }  // namespace dont
