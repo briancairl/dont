@@ -19,7 +19,7 @@ target_compile_features(${PROJECT_NAME}_core INTERFACE cxx_std_17)
 target_include_directories(
   ${PROJECT_NAME}_core
   INTERFACE
-    $<BUILD_INTERFACE:${${PROJECT_NAME}_SOURCE_DIR}/core/include>
+    $<BUILD_INTERFACE:${${PROJECT_NAME}_SOURCE_DIR}/include/core>
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 
@@ -29,7 +29,7 @@ target_include_directories(
   ${PROJECT_NAME}_stl
   INTERFACE
     ${PROJECT_NAME}_core
-    $<BUILD_INTERFACE:${${PROJECT_NAME}_SOURCE_DIR}/stl/include>
+    $<BUILD_INTERFACE:${${PROJECT_NAME}_SOURCE_DIR}/include/stl>
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 target_link_libraries(

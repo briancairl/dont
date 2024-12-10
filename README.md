@@ -16,6 +16,8 @@ Note that the `core` implementations included here *do not depend on the STL*.
 
 - appending to a template parameter pack
 - merging template parameter two packs
+- conditionally removing types from param packs
+- "iterating" over tuple-like objects (loop-unrolling)
 
 ## running tests
 
