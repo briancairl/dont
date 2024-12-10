@@ -8,14 +8,11 @@
 #include <gtest/gtest.h>
 
 // Dont
+#include "dont/common.hpp"
 #include "dont/conditions.hpp"
 #include "dont/merge.hpp"
 
 using namespace dont;
-
-template <typename... Ts> struct Pack {
-  static constexpr auto size() { return sizeof...(Ts); }
-};
 
 TEST(MergeIf, EmptyPacks) {
   using Input = Pack<>;

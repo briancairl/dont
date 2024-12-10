@@ -9,13 +9,10 @@
 
 // Dont
 #include "dont/append.hpp"
+#include "dont/common.hpp"
 #include "dont/conditions.hpp"
 
 using namespace dont;
-
-template <typename... Ts> struct Pack {
-  static constexpr auto size() { return sizeof...(Ts); }
-};
 
 TEST(AppendIf, AddToEmptyPack) {
   using Input = Pack<>;
