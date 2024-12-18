@@ -51,3 +51,23 @@ TEST(ForEach, IterateTwoPacks)
 
   EXPECT_EQ(count, static_cast<size_t>(3));
 }
+
+TEST(ForEach, EarlyStop)
+{
+  size_t count = 0;
+
+  for_each<Access>(
+    [&count](size_t element) {
+      EXPECT_GE(element, static_cast<size_t>(0));
+      EXPECT_LT(element, static_cast<size_t>(3));
+      ++count;
+      if (count == 1)
+      {
+        return false;
+      }
+      return true;
+    },
+    Pack<int, float, char>{});
+
+  EXPECT_EQ(count, static_cast<size_t>(1));
+}

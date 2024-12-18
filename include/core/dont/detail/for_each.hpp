@@ -13,8 +13,17 @@ template <typename SliceElementAccess> struct SliceAdapter
   template <typename UnaryCallableT, typename... PackLikeTs>
   static auto slice(UnaryCallableT callable, PackLikeTs&&... packs)
   {
-    callable(SliceElementAccess{}(_forward<PackLikeTs>(packs))...);
-    return 1;
+    using ReturnType = decltype(callable(SliceElementAccess{}(_forward<PackLikeTs>(packs))...));
+    static_assert(is_same_v<ReturnType, void> or is_same_v<ReturnType, bool>);
+    if constexpr (is_same_v<ReturnType, void>)
+    {
+      callable(SliceElementAccess{}(_forward<PackLikeTs>(packs))...);
+      return true;
+    }
+    else
+    {
+      return callable(SliceElementAccess{}(_forward<PackLikeTs>(packs))...);
+    }
   }
 };
 
@@ -23,7 +32,7 @@ auto for_each(UnaryCallableT&& callable, [[maybe_unused]] index_sequence_t<Is...
 {
   return (
     SliceAdapter<RuntimeAccessByIndex<Is>>::template slice(
-      _forward<UnaryCallableT>(callable), _forward<PackLikeTs>(packs)...) +
+      _forward<UnaryCallableT>(callable), _forward<PackLikeTs>(packs)...) and
     ...);
 }
 
