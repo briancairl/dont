@@ -2,7 +2,7 @@
 
 A collection of C++ template (metaprogramming) utilities that I often need, but don't want to have to re-implement for the 1000th time.
 
-## requirements
+## Requirements
 
 - A C++ compiler that supports:
     + C++17 or greater
@@ -12,14 +12,14 @@ A collection of C++ template (metaprogramming) utilities that I often need, but 
 
 Note that the `core` implementations included here *do not depend on the STL*.
 
-## includes
+## Includes
 
 - appending to a template parameter pack
-- merging template parameter two packs
+- merging two or more template parameter packs
 - conditionally removing types from param packs
 - "iterating" over tuple-like objects (loop-unrolling)
 
-## running tests
+## Running tests
 
 ### Clean rebuild and test
 
