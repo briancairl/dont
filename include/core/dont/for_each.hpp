@@ -15,7 +15,7 @@ auto for_each(UnaryCallableT&& callable, PackLikeTs&&... packs)
 {
   return detail::for_each<RuntimeAccessByIndex>(
     _forward<UnaryCallableT>(callable),
-    make_index_sequence_t<pack_size_v<PackLikeTs...>>{},
+    make_index_sequence_t<pack_size_v<remove_const_t<remove_reference_t<PackLikeTs>>...>>{},
     _forward<PackLikeTs>(packs)...);
 }
 
