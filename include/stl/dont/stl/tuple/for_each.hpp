@@ -18,4 +18,6 @@ template <typename UnaryCallableT, typename... TupleTs> auto for_each(UnaryCalla
   return ::dont::for_each<detail::TupleElementAccess>(_forward<UnaryCallableT>(callable), _forward<TupleTs>(tups)...);
 }
 
+template <typename TupleT> decltype(auto) reversed(TupleT&& tup) { return detail::reversed(_forward<TupleT>(tup)); }
+
 }  // namespace dont::tuple

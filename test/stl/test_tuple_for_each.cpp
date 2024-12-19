@@ -35,3 +35,17 @@ TEST(TupleForEach, IterateTwoTuples)
 
   EXPECT_EQ(count, static_cast<size_t>(3));
 }
+
+TEST(TupleForEach, IterateReversed)
+{
+  size_t count = 0;
+
+  tuple::for_each(
+    [&count](auto& element) {
+      std::cout << '[' << count << "] " << element << std::endl;
+      ++count;
+    },
+    tuple::reversed(std::make_tuple(0, 0.1, 2.0F)));
+
+  EXPECT_EQ(count, static_cast<size_t>(3));
+}
