@@ -23,7 +23,6 @@ template <size_t I> struct TupleElementAccess
 template <typename TupleT, std::size_t... Is>
 decltype(auto) reversed(TupleT&& tup, std::integer_sequence<std::size_t, Is...> _)
 {
-  using InputTupleType = std::remove_reference_t<TupleT>;
   static constexpr std::size_t N = sizeof...(Is);
   return std::forward_as_tuple(std::get<(N - Is - 1)>(std::forward<TupleT>(tup))...);
 }
