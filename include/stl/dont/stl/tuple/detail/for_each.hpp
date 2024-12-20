@@ -13,8 +13,8 @@ namespace dont::tuple::detail
 
 template <size_t I> struct TupleElementAccess
 {
-  template <typename... Ts> constexpr auto& operator()(::std::tuple<Ts...>& tup) { return ::std::get<I>(tup); }
-  template <typename... Ts> constexpr const auto& operator()(const ::std::tuple<Ts...>& tup) const
+  template <typename... Ts> constexpr decltype(auto) operator()(::std::tuple<Ts...>& tup) { return ::std::get<I>(tup); }
+  template <typename... Ts> constexpr decltype(auto) operator()(const ::std::tuple<Ts...>& tup) const
   {
     return ::std::get<I>(tup);
   }

@@ -40,12 +40,16 @@ TEST(TupleForEach, IterateReversed)
 {
   size_t count = 0;
 
+  auto tup = std::make_tuple(0, 0.1, 2.0F);
+
   tuple::for_each(
     [&count](auto& element) {
+      element = 1;
+      ASSERT_FALSE((std::is_const_v<std::remove_reference_t<decltype(element)>>));
       std::cout << '[' << count << "] " << element << std::endl;
       ++count;
     },
-    tuple::reversed(std::make_tuple(0, 0.1, 2.0F)));
+    tuple::reversed(tup));
 
   EXPECT_EQ(count, static_cast<size_t>(3));
 }
